@@ -27,7 +27,7 @@ describe("games model", () => {
       expect(game.genre).toBe("lame");
       expect(game.releaseYear).toBe("1992");
     });
-    it("should have res.status 200", () => {
+    it("should have res.status 422", () => {
       return request(server)
         .post("/games")
         .then(res => {
@@ -55,6 +55,15 @@ describe("games model", () => {
         .get("/games")
         .then(res => {
           expect(res.text).toHaveLength(2);
+        });
+    });
+  });
+  describe("get by id", () => {
+    it("should return status 200", () => {
+      return request(server)
+        .get("/games/:id")
+        .then(res => {
+          expect(res.status).toBe(200);
         });
     });
   });
