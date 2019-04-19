@@ -29,9 +29,32 @@ describe("games model", () => {
     });
     it("should have res.status 200", () => {
       return request(server)
+        .post("/games")
+        .then(res => {
+          expect(res.status).toBe(422);
+        });
+    });
+  });
+  describe("get request", () => {
+    it("should have status 200", () => {
+      return request(server)
         .get("/games")
         .then(res => {
           expect(res.status).toBe(200);
+        });
+    });
+    it("should return type json", () => {
+      return request(server)
+        .get("/games")
+        .then(res => {
+          expect(res.type).toBe("application/json");
+        });
+    });
+    it("should return two games", () => {
+      return request(server)
+        .get("/games")
+        .then(res => {
+          expect(res.text).toHaveLength(2);
         });
     });
   });
